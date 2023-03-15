@@ -1,23 +1,17 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+
 import './App.css';
+import Ticker from './components/ticker/Ticker';
+import MovingAverage from './components/movingAverage/MovingAverage';
 
 function App() {
+  const [price, setPrice] = useState(null);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="tile">
+      <Ticker price={price}
+              setPrice={setPrice}/>
+      <MovingAverage currency="BTC" periods={5} />
     </div>
   );
 }

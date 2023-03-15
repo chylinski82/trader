@@ -1,38 +1,248 @@
 .App {
-  text-align: center;
+  width: 100%;
+  font-family: 'Ubuntu', sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+header {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 70px;
+  background-color: #ff8cff;
+  border-bottom: 3px solid #dd00ff;
+  box-shadow: 0px 2px 0px #9900cc;
+  z-index: 10;
+}
+
+main {
+  width: 100%;
+  padding-top: 70px;
+}
+
+.tile {
+  width: 90%; /* adjust as needed */
+  padding: 35px 10px 20px 10px;
+  background-color: #4d88ff;
   color: white;
+  font-family: 'Open Sans', sans-serif;
+  margin: 5% auto;
+  border-radius: 10px;
+  position: relative;
 }
 
-.App-link {
-  color: #61dafb;
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* increase the number of columns as the screen width increases */
+  grid-gap: 10px; /* set a gap between the columns */
+  align-items: center; /* aligns the items vertically in the middle */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.container-bottom {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding-right: 5%;
+}
+
+.label {
+  height: 40px;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: left; 
+  margin-bottom: 20px; /* adjust as needed */
+  align-items: center;
+}
+
+.field, .header-field {
+  height: 40px; 
+  font-family: 'Ubuntu', sans-serif;
+  font-size: inherit;
+  border: none;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  font-weight: normal;
+  background-color: inherit;
+}
+
+.field  {
+  width: 70px;
+  margin-left: 10px;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.header-field {
+  margin-top: 15px;
+  width: 100px;
+}
+
+#search-bar {
+  margin-top: 15px;
+  width: 120px;
+  text-align: left;
+}
+
+#custom-period {
+  display: block;
+  position: relative;
+  top: 50px;
+  z-index: 11;
+  background-color: #ffe600;
+}
+
+#custom-period-off {
+  display: none;
+}
+
+#menu {
+  width: 70px;
+  margin-top: 15px;
+  border: none;
+  background-color: #ff8cff;
+}
+
+.dropdown-content-on {
+  flex-direction: column;
+  align-items: flex-end;
+  position: absolute;
+  top: 20px;
+  right: 60px;
+  z-index: 2;
+  background-color: #ffe600e1;
+  list-style-type: none;
+  width: 100px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+li, li div .header-field {
+  height: 40px;
+  text-align: inherit;
+  vertical-align: middle;
+  background-color: inherit;
+  line-height: 1.6;
+  padding: 0;
+  margin: 0;
+}
+
+.dropdown-content-off {
+  display: none;
+}
+
+a, .header-field {
+  line-height: 1.5em;
+  text-decoration: none;
+  color: black;
+}
+
+a:hover, .header-field:hover {
+  color: #1454d4;
+  font-weight: 700;
+}
+
+#label-time {
+  width: 200px;
+}
+
+#input-time {
+  width: 80%; /* adjust as needed */
+}
+
+.button {
+  height: 40px;
+  border-radius: 10px;
+  background-color: white;
+  font-weight: bold;
+  font-family: 'Open Sans', sans-serif;
+  letter-spacing: .03em;
+  box-shadow: 10px 10px 8px 0px rgba(20, 0, 73, 0.75);
+  padding: 0 10px;
+}
+
+.button:hover {
+  box-shadow: none;
+  transform: translateY(-2px);
+}
+
+.button:active {
+  transform: translateY(2px);
+}
+
+.red {
+  background-color: #ff661a;
+}
+
+.amber {
+  background-color: #ffe600;
+}
+
+.green {
+  background-color: rgb(183, 250, 49);  
+}
+
+.pink {
+  background-color: #ff8cff;
+}
+
+@media only screen and (min-width: 480px) {
+  main {
+    width: 95%;
+    margin: 0 auto;
   }
-  to {
-    transform: rotate(360deg);
+
+  .container {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
+
+}
+
+@media only screen and (min-width: 600px) {
+  main {
+    width: 90%;
+    margin: 0 auto;
+  }
+  
+  .tile {
+    width: 80%; /* adjust as needed */
+  }
+
+  .container {
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+
+}
+
+@media only screen and (min-width: 768px) {
+  main {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .tile {
+    width: 80%; /* adjust as needed */
+  }
+
+}
+
+@media only screen and (min-width: 992px) {
+  main {
+    width: 70%;
+    margin: 0 auto;
+  }
+
+  .tile {
+    width: 70%; /* adjust as needed */
+  }
+
+  .container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); /* increase the number of columns as the screen width increases */
   }
 }
+
