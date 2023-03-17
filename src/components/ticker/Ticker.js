@@ -17,9 +17,11 @@ function Ticker({ price, setPrice}) {
         const msg = JSON.stringify({
           jsonrpc: '2.0',
           id: 8106,
-          method: 'public/ticker',
+          method: 'private/ticker',
           params: {
             instrument_name: 'BTC-PERPETUAL',
+            client_id:'iqFAdu09',
+            client_secret: '4-NrRqooJ6o8_35qdpOVc3Y2fuzz7fWM9zg-xgQC0gY'
           },
         });
         socket.send(msg);
@@ -89,7 +91,7 @@ function Ticker({ price, setPrice}) {
     <div>
       {price !== null ? (
         isValidPrice(price) ? (
-          <div>Last Price: {price}</div>
+          <div className='field'>Price: {price}</div>
         ) : (
           <div className="warning">Warning: Fetched incorrect value</div>
         )
