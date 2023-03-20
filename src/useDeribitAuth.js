@@ -4,7 +4,6 @@ import ReconnectingWebSocket from 'reconnecting-websocket';
 const client_id = '7UxnGRik';
 const client_secret = 'el5jTF5RDDAYSiCJ5IjJB539BnmqhbMFdqd8sS0f6PA';
 
-
 const useDeribitAuth = () => {
   const [accessToken, setAccessToken] = useState(null);
 
