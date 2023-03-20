@@ -10,10 +10,10 @@ function Ticker({ price, setPrice}) {
 
     // Function to open the WebSocket connection and send message to fetch price data
     const openWebSocket = () => {
-      socket = new WebSocket('wss://test.deribit.com/ws/api/v2');
+      socket = new WebSocket('wss://www.deribit.com/ws/api/v2');
      
       socket.onopen = () => {
-        console.log('WebSocket connection established');
+        console.log('WebSocket Ticker connection established');
         const msg = JSON.stringify({
           jsonrpc: '2.0',
           id: 8106,
@@ -21,7 +21,7 @@ function Ticker({ price, setPrice}) {
           params: {
             instrument_name: 'BTC-PERPETUAL',
             client_id:'iqFAdu09',
-            client_secret: '4-NrRqooJ6o8_35qdpOVc3Y2fuzz7fWM9zg-xgQC0gY'
+            client_secret: 'NPBJjm3PbksJ9haoASj_6E-c_9Wyi1D-ei5OQFhkmPM'
           },
         });
         socket.send(msg);
@@ -103,4 +103,3 @@ function Ticker({ price, setPrice}) {
 }
 
 export default Ticker;
-

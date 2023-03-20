@@ -8,9 +8,11 @@ import FirstUpper from './components/movingAverage/FirstUpper';
 import SecondUpper from './components/movingAverage/SecondUpper';
 import FirstLower from './components/movingAverage/FirstLower';
 import SecondLower from './components/movingAverage/SecondLower';
+import TradeTile from './components/tradeTile/TradeTile';
 
 function App() {
   const [price, setPrice] = useState(null);
+  const [movingAverage, setMovingAverage] = useState(0);
 
   return (
     <>
@@ -18,15 +20,17 @@ function App() {
         <div className="container">
           <Ticker price={price}
                   setPrice={setPrice}/>
-          <MovingAverage price={price} />
-          <FirstUpper price={price} />
-          <SecondUpper price={price} />
-          <FirstLower price={price} />
-          <SecondLower price={price} />
+          <MovingAverage price={price}
+                         movingAverage={movingAverage}
+                         setMovingAverage={setMovingAverage} />
+          <FirstUpper movingAverage={movingAverage} />
+          <SecondUpper movingAverage={movingAverage} />
+          <FirstLower movingAverage={movingAverage} />
+          <SecondLower movingAverage={movingAverage} />       
         </div>
       </div>
       <div className="tile">
-        <HistoricData />
+        <TradeTile />
       </div>
     </>  
   );

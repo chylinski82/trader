@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import ReconnectingWebSocket from 'reconnecting-websocket';
 
-const client_id = "iqFAdu09";
-const client_secret = "NPBJjm3PbksJ9haoASj_6E-c_9Wyi1D-ei5OQFhkmPM";
+const client_id = '7UxnGRik';
+const client_secret = 'el5jTF5RDDAYSiCJ5IjJB539BnmqhbMFdqd8sS0f6PA';
+
 
 const useDeribitAuth = () => {
   const [accessToken, setAccessToken] = useState(null);

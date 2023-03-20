@@ -1,50 +1,82 @@
-import { renderHook, act } from '@testing-library/react-hooks';
-import { Server } from 'mock-socket';
-import useHistoricData from './useHistoricData';
-import { WebSocket as MockWebSocket } from 'mock-socket';
+import { useState, useEffect } from 'react';
 
-// Mock WebSocket
-global.WebSocket = MockWebSocket;
+const client_id = '7UxnGRik';
+const client_secret = 'el5jTF5RDDAYSiCJ5IjJB539BnmqhbMFdqd8sS0f6PA';
+const instrument = 'BTC-PERPETUAL';
+const timeframe = '1';
 
-describe('useHistoricData hook', () => {
-  let mockServer;
+const useHistoricData = () => {
+  const [data, setData] = useState([]);
 
-  beforeEach(() => {
-    // Create a new Mock WebSocket server before each test
-    mockServer = new Server('wss://test.deribit.com/ws/api/v2');
-  });
+  const fetchData = () => {
+    const ws = new WebSocket('wss://www.deribit.com/ws/api/v2');
 
-  afterEach(() => {
-    // Close the Mock WebSocket server after each test
-    mockServer.close();
-  });
+    ws.onopen = () => {
+      const msg = JSON.stringify({
+        jsonrpc: '2.0',
+        id: 833,
+        method: 'public/get_tradingview_chart_data',
+        params: {
+          instrument_name: instrument,
+          start_timestamp: Math.floor(Date.now() - 5 * 60 * 1000),
+          end_timestamp: Math.floor(Date.now()),
+          resolution: timeframe,
+          client_id,
+          client_secret,
+        },
+      });
 
-  // Move your sendInitialChartData function here
+      ws.send(msg);
+    };
 
-  // Move your should display fetched chart data test here and modify it
-  it('should fetch chart data', async () => {
-    sendInitialChartData();
+    ws.onmessage = (event) => {
+      const jsonResp = JSON.parse(event.data);
+      const df = jsonToDataFrame(jsonResp);
+      setData(df);
+    };
 
-    const { result, waitForNextUpdate } = renderHook(() => useHistoricData());
+    ws.onerror = (error) => {
+      console.error('WebSocket error:', error);
+    };
 
-    // Wait for the chart data to be fetched
-    await waitForNextUpdate();
+    ws.onclose = () => {
+      console.log('WebSocket connection closed');
+      setTimeout(() => {
+        console.log('Reconnecting WebSocket');
+        fetchData();
+      }, 10000); // wait before attempting to reconnect
+    };
 
-    // Check if the fetched data has the expected length
-    expect(result.current.length).toBe(5);
+    return ws;
+  };
 
-    // Check if the data has the expected values
-    expect(result.current[0].open).toBe(10000);
-    expect(result.current[0].high).toBe(10050);
-    expect(result.current[0].low).toBe(9950);
-    expect(result.current[0].close).toBe(10000);
-    expect(result.current[0].volume).toBe(1);
-  });
+  const jsonToDataFrame = (jsonResp) => {
+    const res = jsonResp.result;
 
-  // should attempt to reopen WebSocket connection when closed test here and modify it
-  it('should attempt to reopen WebSocket connection when closed', async () => {
-    // All the necessary code for this test stays the same
-    // ...
-  });
-});
+    const df = res.ticks.map((tick, index) => {
+      const timestamp = new Date(tick);
+      return {
+        timestamp,
+        open: res.open[index],
+        high: res.high[index],
+        low: res.low[index],
+        close: res.close[index],
+        volume: res.volume[index],
+      };
+    });
 
+    return df;
+  };
+
+  useEffect(() => {
+    const ws = fetchData();
+
+    return () => {
+      ws.close();
+    };
+  }, []);
+
+  return data;
+};
+
+export default useHistoricData;

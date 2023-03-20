@@ -1,7 +1,7 @@
-import useMovingAverage from './useMovingAverage';
+import React from "react";
 
-const FirstLower = ({ price }) => {
-  const firstLower = useMovingAverage(price) - (useMovingAverage(price) * 0.002);
+const FirstLower = ({ movingAverage }) => {
+  const firstLower = movingAverage - (movingAverage * 0.002);
 
   return (
     <div className='field'>-1: {firstLower.toFixed(1)}</div>
