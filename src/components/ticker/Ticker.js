@@ -20,8 +20,8 @@ function Ticker({ price, setPrice}) {
           method: 'private/ticker',
           params: {
             instrument_name: 'BTC-PERPETUAL',
-            client_id:'iqFAdu09',
-            client_secret: 'NPBJjm3PbksJ9haoASj_6E-c_9Wyi1D-ei5OQFhkmPM'
+            client_id:'xxxxxxxxxxxxxx',
+            client_secret: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
           },
         });
         socket.send(msg);
