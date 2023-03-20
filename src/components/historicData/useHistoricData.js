@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
-const client_id = '7UxnGRik';
-const client_secret = 'el5jTF5RDDAYSiCJ5IjJB539BnmqhbMFdqd8sS0f6PA';
+const client_id = 'xxxxxxxxxxx';
+const client_secret = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxx';
 const instrument = 'BTC-PERPETUAL';
 const timeframe = '1';
 
